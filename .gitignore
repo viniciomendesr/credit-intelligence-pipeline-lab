@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+*.egg-info/
+
+# Dados gerados pelo pipeline — reproduzíveis rodando o flow
+data/raw/bureau_api.json
+data/staging/
+data/marts/
+data/monitoring/
+
+# Dataset Kaggle — baixar manualmente em https://www.kaggle.com/c/GiveMeSomeCredit
+# Não redistribuir (termos de uso do Kaggle)
+data/raw/cs-training.csv
+data/raw/cs-test.csv
+data/sampleEntry.csv
+
+# Credenciais GCP — nunca commitar
+credentials.json
+
+# macOS
+.DS_Store
+
+# Guia do hackathon — material de estudo privado
+context/
+
+# Editor
+.vscode/
+.idea/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
