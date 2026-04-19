@@ -1,4 +1,4 @@
-# DEMO — Runbook de demonstração do pipeline (5 min)
+# demo — runbook de demonstração do pipeline (5 min)
 
 Roteiro para demonstrar o sistema em produção sem o endpoint LLM. Use
 para qualquer cenário em que você precisa provar em 5 minutos que o
@@ -10,7 +10,7 @@ sistema está vivo, auditável e reproduzível:
 - Entrevista técnica (um caso particular deste roteiro).
 
 Se a demo evoluir para "como você usa LLM?", complementar com
-`DEMO_BONUS.md`.
+`demo-bonus.md`.
 
 ---
 

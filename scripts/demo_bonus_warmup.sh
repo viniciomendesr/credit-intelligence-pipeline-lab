@@ -37,4 +37,4 @@ if command -v open >/dev/null 2>&1; then
 fi
 
 echo "✅ Cache por chave populado. Chamadas repetidas voltarão com cached:true em <100ms."
-echo "   Siga o DEMO_BONUS.md."
+echo "   Siga o demo-bonus.md."

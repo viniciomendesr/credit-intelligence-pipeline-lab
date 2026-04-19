@@ -1,4 +1,4 @@
-# DEMO_BONUS — Runbook do endpoint explicável (5 min)
+# demo-bonus — runbook do endpoint explicável (5 min)
 
 Roteiro para demonstrar o endpoint `/explain-decision/{applicant_id}` —
 o diferencial de LLM com guardrails em cima do pipeline. Use para:
@@ -10,7 +10,7 @@ o diferencial de LLM com guardrails em cima do pipeline. Use para:
 - Anexar em portfólio como "case de LLM em produção com eval".
 - Entrevista técnica que puxar para IA/LLM/explicabilidade.
 
-> Pré-requisito: `DEMO.md` da Fase 4 já ensaiado. Este runbook assume
+> Pré-requisito: `demo.md` da Fase 4 já ensaiado. Este runbook assume
 > que o sistema base já foi demonstrado — aqui entra só o diferencial.
 
 ---

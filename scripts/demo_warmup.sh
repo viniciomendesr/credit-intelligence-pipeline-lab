@@ -25,4 +25,4 @@ elif command -v xdg-open >/dev/null 2>&1; then
   xdg-open "$URL/docs" || true
 fi
 
-echo "✅ Sistema aquecido. Aguarde 30s e inicie a demo (DEMO.md)."
+echo "✅ Sistema aquecido. Aguarde 30s e inicie a demo (demo.md)."
