@@ -262,7 +262,7 @@ conversa em entrevista.
 
 ### 2026-04-19 — arquitetura paralela v1/v2: adicionar Fase 5 + promover bônus pra Bônus Fase 4
 
-**Contexto.** Análise de aderência do bônus ao produto real da Core AI
+**Contexto.** Análise de aderência do bônus ao produto real de um motor de crédito B2B
 expôs que o pipeline inteiro até aqui era **100% rule-based** — a
 classificação de risco vinha de um `CASE WHEN` de 3 linhas em
 `models/mart_credit_features.sql` e o label `defaulted` do Kaggle
@@ -317,14 +317,14 @@ testável, substituível e compreensível isoladamente.
 
 **Contexto.** Bônus original pedia endpoint `GET /insights` com LLM resumindo
 o histórico de métricas do pipeline (`metrics_history.jsonl`) em PT-BR.
-Análise crítica da aderência ao dia a dia da Core AI (startup brasileira do
+Análise crítica da aderência ao dia a dia de um motor de crédito B2B (empresa do
 "last mile do crédito", empresa-alvo do hackathon) mostrou que LLM narrando
 métricas é **meta-observabilidade** (dashboard narrado), não o coração do
 produto deles.
 
 **Decisão.** Trocar por `GET /explain-decision/{applicant_id}` — explicação
 de decisão de crédito em PT-BR com guardrails. Encosta no caminho do dinheiro
-da Core AI (reason-code regulatório para SaaS parceiros cumprirem Res.
+do motor de crédito (reason-code regulatório para SaaS parceiros cumprirem Res.
 4.935/Bacen), mantém toda a infra do bônus original (FastAPI, cache, LLM em
 produção, PT-BR), e ganha a separação extrator/narrador como conteúdo
 pedagógico central.

@@ -137,7 +137,7 @@ def _build_prompt(ctx: dict[str, Any]) -> str:
         for f in ctx["key_factors"]
     )
     pct = ctx["pred_default_prob"] * 100
-    return f"""Você é um analista de crédito da Core AI. O modelo estimou probabilidade de inadimplência de {pct:.1f}%. Decisão: {ctx['decision']}.
+    return f"""Você é um analista de crédito de um motor de crédito B2B. O modelo estimou probabilidade de inadimplência de {pct:.1f}%. Decisão: {ctx['decision']}.
 
 Top-3 fatores que mais contribuíram para essa probabilidade (SHAP values — maior magnitude absoluta):
 {factors_text}

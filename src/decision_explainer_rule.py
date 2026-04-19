@@ -106,7 +106,7 @@ def _build_prompt(ctx: dict[str, Any]) -> str:
         f"- {f['label']}: {f['value']} (mediana da carteira: {f['median']})"
         for f in ctx["key_factors"]
     )
-    return f"""Você é um analista de crédito da Core AI. Um tomador recebeu a decisão {ctx['decision']} (tier de risco {ctx['risk_tier']}).
+    return f"""Você é um analista de crédito de um motor de crédito B2B. Um tomador recebeu a decisão {ctx['decision']} (tier de risco {ctx['risk_tier']}).
 
 Fatores extraídos pelo motor de risco:
 {factors_text}
