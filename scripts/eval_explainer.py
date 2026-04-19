@@ -150,6 +150,8 @@ def run_eval(mart_path: str, n: int, seed: int) -> dict:
                     "applicant_id": int(applicant_id),
                     "check": check,
                     "detail": msg,
+                    "narrative": result["narrative"],
+                    "key_factors": result["key_factors"],
                 })
 
     total = len(ids)
