@@ -50,7 +50,7 @@ jobs:
           IMAGE=$REGION-docker.pkg.dev/$PROJECT_ID/$REPO/$SERVICE:$GITHUB_SHA
 
           gcloud auth configure-docker $REGION-docker.pkg.dev --quiet
-          docker build -t $IMAGE .
+          docker build --platform linux/amd64 -t $IMAGE .
           docker push $IMAGE
 
           gcloud run deploy $SERVICE \
@@ -58,7 +58,7 @@ jobs:
             --platform managed \
             --region $REGION \
             --allow-unauthenticated \
-            --port 8000 \
+            --port 8080 \
             --memory 512Mi \
             --quiet
 
