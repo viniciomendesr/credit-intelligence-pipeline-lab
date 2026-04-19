@@ -86,17 +86,24 @@ def _candidate_strings(value: float) -> set[str]:
 def _expand_valid_values(key_factors: list[dict]) -> list[float]:
     """Pool de números aceitos como grounded numa narrativa.
 
-    Além do `value` e `median`, inclui: (a) números presentes nos labels
-    (ex: "60-89 dias" → 60, 89), e (b) representação percentual de
-    decimais < 1 (ex: 0.04 → 4, porque LLM escreve "4%").
+    Além do `value` e `median`, inclui: (a) números nos labels
+    (ex: "60-89 dias" → 60, 89), (b) representação percentual de
+    decimais <=1 (ex: 0.04 → 4%, 1.0 → 100%), e (c) `deviation_ratio` +
+    sua versão *100 (LLM pode narrar "renda 85% acima da mediana"
+    derivando de deviation_ratio=0.85).
     """
     out: list[float] = []
     for f in key_factors:
         for v in (f["value"], f["median"]):
             fv = float(v)
             out.append(fv)
-            if 0 < abs(fv) < 1:
+            if 0 < abs(fv) <= 1:
                 out.append(fv * 100)
+        dr = f.get("deviation_ratio")
+        if dr is not None:
+            fdr = float(dr)
+            out.append(fdr)
+            out.append(fdr * 100)
         for token in NUM_RE.findall(f.get("label", "")):
             try:
                 out.append(float(token))
