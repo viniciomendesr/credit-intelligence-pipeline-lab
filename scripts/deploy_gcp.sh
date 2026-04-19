@@ -45,6 +45,7 @@ gcloud run deploy "${SERVICE}" \
   --memory 512Mi \
   --service-account "credit-pipeline-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
   --set-env-vars "MART_BUCKET=credit-pipeline-demo-marts,MART_OBJECT=mart_credit_features.parquet" \
+  --update-secrets "ANTHROPIC_API_KEY=anthropic-api-key:latest" \
   --quiet
 
 echo ""
