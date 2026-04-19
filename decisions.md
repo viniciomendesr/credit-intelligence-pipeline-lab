@@ -223,6 +223,43 @@ publicar com atribuição no README.
 
 ## reavaliações e pivots
 
+### 2026-04-19 — Bônus F5: SHAP nativo (não via lib `shap`) + thresholds de decisão + feature validation
+
+**Contexto.** Implementação do `src/decision_explainer_ml.py` esbarrou em
+incompatibilidade: a lib `shap==0.48.0` falha ao parsear `base_score` do
+XGBoost 3.x (recebe como string de lista `'[4.9998403E-1]'`, não consegue
+converter pra float).
+
+**Decisão.** Usar **SHAP nativo do XGBoost** via
+`Booster.predict(DMatrix(X), pred_contribs=True)` em vez da lib externa.
+Contribs retornados têm shape `(n, n_features + 1)` com bias na última
+coluna — descartar a coluna final dá os SHAP values da linha. Zero
+dependência adicional.
+
+**Decisão 2.** Thresholds de decisão fixos: `prob < 0.30 → APROVADO`,
+`0.30-0.60 → APROVADO_COM_LIMITE`, `≥ 0.60 → NEGADO`. Conservador pra
+`APROVADO` (só quando modelo tem alta confiança de não-default) e rígido
+pra `NEGADO` (precisa de evidência forte). Não é threshold otimizado por
+business cost (T.9#5) — é didático.
+
+**Decisão 3.** Cache por chave separado entre v1 e v2 (`_explanation_cache`
+vs `_explanation_cache_ml`). Mesmo `applicant_id`, respostas distintas —
+compartilhar dict sobrescreveria.
+
+**Decisão 4.** Feature validation em inferência (T.9#2 aplicado):
+`_validate_features()` checa que o mart tem todas as colunas que o bundle
+do modelo espera. Se faltar, `RuntimeError` barulhento em vez de
+reordenação silenciosa do pandas. Direto pro caminho crítico.
+
+**Observação pedagogicamente valiosa.** Applicant 23380 (pre-validado no
+`demo_bonus4_warmup.sh` como "NEGADO via tier HIGH") recebe decisão
+**diferente** da v2: `pred_default_prob=0.36` → `APROVADO_COM_LIMITE`.
+Ou seja, o modelo treinado em 144k históricos é **menos conservador** que
+a regra SQL univariada. Demo side-by-side expõe isso — material de
+conversa em entrevista.
+
+---
+
 ### 2026-04-19 — arquitetura paralela v1/v2: adicionar Fase 5 + promover bônus pra Bônus Fase 4
 
 **Contexto.** Análise de aderência do bônus ao produto real da Core AI
