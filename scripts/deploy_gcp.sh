@@ -43,6 +43,8 @@ gcloud run deploy "${SERVICE}" \
   --allow-unauthenticated \
   --port 8080 \
   --memory 512Mi \
+  --service-account "credit-pipeline-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --set-env-vars "MART_BUCKET=credit-pipeline-demo-marts,MART_OBJECT=mart_credit_features.parquet" \
   --quiet
 
 echo ""

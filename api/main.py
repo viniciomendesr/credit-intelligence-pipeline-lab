@@ -1,12 +1,24 @@
+import os
 from datetime import datetime
 
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 
+
+def _load_mart() -> pd.DataFrame:
+    bucket = os.getenv("MART_BUCKET")
+    obj = os.getenv("MART_OBJECT")
+    if bucket and obj:
+        from google.cloud import storage
+        local = "/tmp/mart_credit_features.parquet"
+        storage.Client().bucket(bucket).blob(obj).download_to_filename(local)
+        return pd.read_parquet(local)
+    return pd.read_parquet("data/marts/mart_credit_features.parquet")
+
+
 app = FastAPI(title="Credit Intelligence API")
 
-# Lido uma vez no startup — não a cada request
-df = pd.read_parquet('data/marts/mart_credit_features.parquet')
+df = _load_mart()
 
 
 @app.get("/health")
