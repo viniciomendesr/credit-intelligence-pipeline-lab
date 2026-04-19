@@ -110,8 +110,8 @@ Pré-requisitos: Python 3.11+, `gcloud` CLI (apenas para deploy), acesso ao
 
 ```bash
 # 1. Clone e instale
-git clone https://github.com/viniciomendesr/credit-intelligence-pipeline
-cd credit-intelligence-pipeline
+git clone https://github.com/viniciomendesr/credit-intelligence-pipeline-lab
+cd credit-intelligence-pipeline-lab
 python3.11 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
