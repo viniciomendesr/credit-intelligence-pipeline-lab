@@ -5,11 +5,11 @@ set -euo pipefail
 
 URL="${1:-https://credit-api-wdrbcpzvha-uc.a.run.app}"
 
-# Ids pré-validados: um por tier. Validar manualmente após rodar o eval
-# (scripts/eval_explainer.py) e escolher ids cuja narrativa você já revisou.
-ID_APROVADO="${ID_APROVADO:-1}"      # LOW  tier
-ID_LIMITE="${ID_LIMITE:-23}"         # MEDIUM tier
-ID_NEGADO="${ID_NEGADO:-171}"        # HIGH  tier
+# Ids pré-validados (narrativa revisada após pass_rate_grounded=1.0 no eval).
+# Escolha: 1 de cada tier com perfil claro e dados não-outlier.
+ID_APROVADO="${ID_APROVADO:-37167}"  # LOW    — renda R$ 10.750, uso 10%
+ID_LIMITE="${ID_LIMITE:-50821}"      # MEDIUM — renda R$ 7.195, uso 63%, debt 0.82
+ID_NEGADO="${ID_NEGADO:-23380}"      # HIGH   — renda R$ 4.000, uso 100%
 
 echo "▶ Warm-up do endpoint explicável: $URL"
 echo ""
