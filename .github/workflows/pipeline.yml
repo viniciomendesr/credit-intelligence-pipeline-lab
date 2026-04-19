@@ -45,14 +45,25 @@ jobs:
       - name: Set up gcloud CLI
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Build, push and deploy
+      - name: Ensure Artifact Registry repo exists
+        run: |
+          gcloud artifacts repositories create $REPO \
+            --repository-format=docker \
+            --location=$REGION \
+            --quiet 2>/dev/null || echo "repo already exists"
+
+      - name: Build image
         run: |
           IMAGE=$REGION-docker.pkg.dev/$PROJECT_ID/$REPO/$SERVICE:$GITHUB_SHA
-
+          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
           gcloud auth configure-docker $REGION-docker.pkg.dev --quiet
           docker build --platform linux/amd64 -t $IMAGE .
-          docker push $IMAGE
 
+      - name: Push image
+        run: docker push $IMAGE
+
+      - name: Deploy to Cloud Run
+        run: |
           gcloud run deploy $SERVICE \
             --image $IMAGE \
             --platform managed \
