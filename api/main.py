@@ -1,8 +1,12 @@
 import os
-from datetime import datetime
+import sys
+from datetime import datetime, timedelta
 
 import pandas as pd
 from fastapi import FastAPI, HTTPException
+
+sys.path.insert(0, ".")
+from src.decision_explainer import explain_decision
 
 
 def _load_mart() -> pd.DataFrame:
@@ -47,3 +51,28 @@ def risk_summary():
             .to_dict()
         ),
     }
+
+
+_explanation_cache: dict[int, dict] = {}
+EXPLANATION_TTL = timedelta(minutes=30)
+
+
+@app.get("/explain-decision/{applicant_id}")
+def explain(applicant_id: int):
+    now = datetime.now()
+    cached = _explanation_cache.get(applicant_id)
+    if cached and (now - cached["_cached_at"]) < EXPLANATION_TTL:
+        return {**{k: v for k, v in cached.items() if k != "_cached_at"}, "cached": True}
+
+    try:
+        result = explain_decision(applicant_id, mart=df)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except KeyError:
+        raise HTTPException(
+            status_code=503,
+            detail="ANTHROPIC_API_KEY ausente no runtime",
+        )
+
+    _explanation_cache[applicant_id] = {**result, "_cached_at": now}
+    return {**result, "cached": False}
