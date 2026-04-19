@@ -30,6 +30,10 @@ from sklearn.metrics import log_loss, roc_auc_score
 from sklearn.model_selection import train_test_split
 from xgboost import XGBClassifier
 
+from src.logger import get_logger
+
+log = get_logger("train")
+
 MART_PATH_DEFAULT = "data/marts/mart_credit_features.parquet"
 MODEL_PATH_DEFAULT = "models/model.pkl"
 METRICS_PATH_DEFAULT = "reports/model_metrics.json"
@@ -164,18 +168,20 @@ def evaluate_and_benchmark(
     Path(out_path).parent.mkdir(parents=True, exist_ok=True)
     Path(out_path).write_text(json.dumps(report, indent=2, ensure_ascii=False))
 
-    print(
-        f'AUC: XGB {report["model"]["auc"]:.3f} '
-        f'vs rule {report["baseline_rule"]["auc"]:.3f} '
-        f'(+{report["delta"]["auc"]:.3f})'
+    log.info(
+        "Modelo avaliado",
+        extra={
+            "stage": "evaluate",
+            "model_auc": round(report["model"]["auc"], 4),
+            "baseline_auc": round(report["baseline_rule"]["auc"], 4),
+            "delta_auc": round(report["delta"]["auc"], 4),
+            "model_precision_at_20": round(report["model"]["precision_at_20"], 4),
+            "baseline_precision_at_high": round(report["baseline_rule"]["precision_at_tier_high"], 4),
+            "log_loss": round(report["model"]["log_loss"], 4),
+            "n_test": report["n_test"],
+        },
     )
-    print(
-        f'Precision@20: XGB {report["model"]["precision_at_20"]:.3f} '
-        f'| baseline_high: {report["baseline_rule"]["precision_at_tier_high"]:.3f} '
-        f'(pos_rate {report["pos_rate_test"]:.3f})'
-    )
-    print(f"Log-loss XGB: {report['model']['log_loss']:.3f}")
-    print(f"\nRelatório: {out_path}")
+    log.info("Relatório persistido", extra={"stage": "evaluate", "path": str(out_path)})
     return report
 
 
@@ -186,18 +192,32 @@ def main() -> int:
     parser.add_argument("--metrics-out", default=METRICS_PATH_DEFAULT)
     args = parser.parse_args()
 
-    print(f"▶ Preparando dataset a partir de {args.mart}")
+    log.info("Iniciando training pipeline", extra={"stage": "start", "mart": args.mart})
+
     X_train, X_test, y_train, y_test, df_test_meta = prepare_dataset(args.mart)
-    print(f"  Train: {len(X_train):,} | Test: {len(X_test):,} | features: {len(X_train.columns)}")
-    print(f"  y_train mean: {y_train.mean():.4f} | y_test mean: {y_test.mean():.4f}")
+    log.info(
+        "Dataset preparado",
+        extra={
+            "stage": "prepare",
+            "n_train": len(X_train),
+            "n_test": len(X_test),
+            "n_features": len(X_train.columns),
+            "y_train_pos_rate": round(float(y_train.mean()), 4),
+            "y_test_pos_rate": round(float(y_test.mean()), 4),
+        },
+    )
 
-    print(f"\n▶ Treinando XGBoost + calibração isotonic...")
     bundle = train_model(X_train, y_train, args.model_out)
-    print(f"  Modelo salvo em {args.model_out}")
-    print(f"  scale_pos_weight: {bundle['scale_pos_weight']:.2f}")
-    print(f"  git_sha: {bundle['git_sha']}")
+    log.info(
+        "Modelo treinado e persistido",
+        extra={
+            "stage": "train",
+            "model_path": args.model_out,
+            "scale_pos_weight": round(bundle["scale_pos_weight"], 2),
+            "git_sha": bundle["git_sha"],
+        },
+    )
 
-    print(f"\n▶ Avaliando + benchmarking vs. baseline rule-based...")
     evaluate_and_benchmark(bundle, X_test, y_test, df_test_meta, args.metrics_out)
     return 0
 
