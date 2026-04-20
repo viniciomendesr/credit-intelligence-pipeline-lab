@@ -13,14 +13,11 @@ on:
       - 'LICENSE'
   pull_request:
     branches: [main]
-    paths-ignore:
-      - '**/*.md'
-      - '*.md'
-      - 'context/**'
-      - 'reports/**'
-      - 'models/**'
-      - '.gitignore'
-      - 'LICENSE'
+    # Intencional: não usar paths-ignore aqui. O check `test` é required
+    # em branch protection, e precisa SEMPRE rodar pra PR mergear sem
+    # admin bypass. Para docs-only PRs, o job é rápido (~1min via pip
+    # cache) e aceitável. paths-ignore continua valendo no push pra main
+    # — não redeployamos quando a mudança é só docs.
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
