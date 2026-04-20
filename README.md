@@ -28,20 +28,46 @@ como material de estudo](#como-usar-este-repo-como-material-de-estudo).
 ## Abordagem pedagógica
 
 O projeto é estruturado em **5 fases + 2 bônus**, cada uma entregando algo
-concreto que funciona antes de aprofundar detalhes. A inspiração é direta:
+concreto que funciona antes de aprofundar detalhes. O currículo combina
+princípios de ciência cognitiva e referências consolidadas de ensino
+técnico moderno:
 
-- **[fast.ai](https://course.fast.ai/)** — ensino top-down ("primeiro mostra
-  o sistema funcionando, depois desdobra como funciona"). Learn-by-doing
-  como filosofia central, não como ornamento.
-- **[Kaggle](https://www.kaggle.com/competitions/GiveMeSomeCredit)** — cada
-  fase parte de um problema concreto com dado real e métrica objetiva. O
-  aluno mede o que fez, não apenas "sente" que fez.
+- **Top-down teaching** ([fast.ai](https://course.fast.ai/)) — cada fase
+  começa com o sistema rodando, não com teoria. Matemática e internals
+  aparecem **depois** do aluno já ter confiança de que sabe fazer. Inverte
+  o currículo tradicional ("teoria primeiro, prática depois") porque
+  adultos aprendem melhor quando o contexto de aplicação precede a
+  abstração.
+- **Learn-by-doing sobre dataset real** ([Kaggle GiveMeSomeCredit](https://www.kaggle.com/competitions/GiveMeSomeCredit))
+  — cada desafio parte de problema concreto com dado real e métrica
+  objetiva. O aluno **mede** o que fez (AUC, precision@k, pass rate), não
+  apenas sente. Métricas viram feedback, não ornamento.
 - **Two-pass learning** — primeira passagem com código de referência pronto
-  (este repo), segunda passagem reimplementando manualmente a partir dos
-  guias. A teoria vem do tropeço, não antes dele.
+  (este repo como gabarito), segunda passagem reimplementando
+  manualmente a partir dos guias. A teoria vem do **tropeço**, não antes
+  dele. O gabarito existe pra consultar quando travar, não pra ler como
+  livro.
+- **Worked examples com progressive fading** — para novatos num domínio,
+  problemas abertos sem scaffold geram sobrecarga cognitiva ([efeito
+  documentado](https://en.wikipedia.org/wiki/Worked-example_effect) em
+  educação técnica). Desafios iniciais trazem hints + esqueleto de solução
+  na seção "Referência"; os últimos são problemas puros. A ajuda **decresce
+  conforme a expertise cresce**.
+- **Active recall + blank-page test** — blocos de fill-in-blank ao fim de
+  cada desafio forçam reconstrução da memória (recall), não reconhecimento
+  passivo. No fim de cada fase, um "teste da página em branco": explicar em
+  voz alta sem consultar. Onde travar é onde vale estudar mais.
+- **Progressive disclosure** — dicas, guia passo-a-passo e referência
+  completa vivem em blocos `<details>` colapsados. O aluno abre só quando
+  travar, não antes. Evita spoiler da solução antes da tentativa honesta.
+- **Meta-review honesto** — cada fase tem **o que ensina** e **o que NÃO
+  ensina** explicitado (ver `melhorias-estruturais.md` no material
+  privado). Aparentar completude prejudica mais que admitir gap — e os gaps
+  viram trilhas opcionais de aprofundamento.
 
-Detalhes estratégicos da abordagem e reflexões pós-implementação ficam em
-[`decisions.md`](decisions.md).
+Reflexões pós-implementação, trade-offs de plataforma e material privado
+ficam em [`decisions.md`](decisions.md) e em
+`context/projeto-pedagogico/` (não versionado).
 
 ---
 
