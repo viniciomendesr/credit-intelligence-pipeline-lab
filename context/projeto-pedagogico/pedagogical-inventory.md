@@ -87,7 +87,7 @@ Gerado em 2026-04-19 após conclusão de Fases 1-5 + Bônus F4 + Bônus F5.
 ### 15. Pedagogy / meta-learning
 - 🔵 Active recall (fill-in-blank), progressive disclosure (`<details>`), blank-page test
 - 🟡 Reflexão estruturada (ADR-like decisions.md)
-- 🟢 Two-pass learning (vibe-code → manual), meta-review "o que NÃO é ensinado" (melhorias-estruturais.md), progressão v1 → v2 como gradiente explícito
+- 🟢 Projeto em duas fases (Construção → Redesenvolvimento), meta-review "o que NÃO é ensinado" (melhorias-estruturais.md), progressão v1 → v2 como gradiente explícito
 
 ---
 
@@ -133,5 +133,5 @@ Gerado em 2026-04-19 após conclusão de Fases 1-5 + Bônus F4 + Bônus F5.
 
 1. **Bloco "📚 Conceitos exercitados" no topo de cada fase do HTML** — 4-6 itens por fase apontando pro código onde aparecem. Torna o currículo implícito em explícito.
 2. **Seção "O que esta fase NÃO ensina"** no final de cada fase, com link pros itens em `melhorias-estruturais.md`. Honestidade pedagógica > aparente completude.
-3. **Trilhas de aprofundamento por dimensão** — pós-Pass 2, quem quer ir fundo em ML rigor pode rodar `Optuna + CV + fairness` sobre o mesmo projeto-base.
+3. **Trilhas de aprofundamento por dimensão** — pós-Redesenvolvimento, quem quer ir fundo em ML rigor pode rodar `Optuna + CV + fairness` sobre o mesmo projeto-base.
 4. **Reorganização top-down tipo fast.ai** — ver `platform-review.md` (análise separada).

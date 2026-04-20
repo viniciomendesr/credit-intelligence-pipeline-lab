@@ -1,7 +1,7 @@
 # decisões de arquitetura e processo
 
 Registro das decisões técnicas feitas ao longo do projeto. Serve de âncora
-pra segunda passagem (implementação manual a partir do zero) e de checkpoint
+pra fase de Redesenvolvimento (implementação manual a partir do zero, em repo separado) e de checkpoint
 quando alguma escolha precisa ser reavaliada.
 
 Formato: cada entrada tem data, contexto, decisão, alternativas consideradas,

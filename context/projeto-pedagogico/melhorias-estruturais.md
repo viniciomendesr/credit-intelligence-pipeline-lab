@@ -584,7 +584,7 @@ A Fase 5 entregou um XGBoost calibrado com AUC 0.857 vs baseline 0.764 (+0.094),
 
 - **Antes do Bônus F5**: itens 1, 2, 3 da alta (logging + feature validation + resolver T.7).
 - **Durante ou logo após Bônus F5**: itens 4-6 (feature eng, custo assimétrico, fairness).
-- **Segunda passagem manual**: restante, na ordem em que você naturalmente tropeçar.
+- **Durante o Redesenvolvimento**: restante, na ordem em que você naturalmente tropeçar.
 
 **Meta-lição pedagógica:** AUC 0.857 é um número. O **trabalho real** de ML engineering é saber onde esse número foi obtido com atalho — hyperparams default, custo simétrico, sem fairness, sem drift monitoring, sem validação de calibração — e qual a ordem de atacar isso. Projeto tradicional termina quando o modelo funciona; projeto honesto termina quando a lista de atalhos está explícita e priorizada. Essa seção é a versão explícita dessa lista — vale incorporar no guia da Fase 5 como **"O que este desafio NÃO ensina e por quê"** no final, com link pros itens de 🔴/🟡 como próximos passos para quem quer aprofundar.
 
@@ -620,7 +620,7 @@ A Fase 4 ensina o fluxo `commit → CI → build → deploy → prod` como se fo
 
 - **Fase 4 adiciona item 4.6** — "Evoluindo o CI/CD": transforma o fluxo atual em PR-based + documenta o upgrade pra staging/tags.
 - **Documento novo `ci-cd-maturity.md`** (em `docs/` ou `context/projeto-pedagogico/`) — os 5 níveis, o que cada um ensina, quando vale evoluir. Serve como bússola pro aluno.
-- **Na Fase 4 e na seção "O que esta fase NÃO cobre"**: registrar explicitamente "staging environment, PR workflow, feature flags, canary deploys — próximos passos depois do Pass 2".
+- **Na Fase 4 e na seção "O que esta fase NÃO cobre"**: registrar explicitamente "staging environment, PR workflow, feature flags, canary deploys — próximos passos depois da fase de Redesenvolvimento".
 
 **O que este projeto JÁ tem de bom** (vale reconhecer antes de criticar):
 

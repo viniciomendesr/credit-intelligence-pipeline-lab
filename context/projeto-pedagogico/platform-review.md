@@ -198,11 +198,11 @@ aberto com múltiplos autores.
 ### (E) Obsidian / Logseq / Notion exportado
 
 Markdown + graph + bi-directional linking. Ótimo pra **revisão** da
-Pass 2.
+Redesenvolvimento.
 
 **Prós:**
 - Personal knowledge management — rede de conceitos
-- Perfeito pra "após a Pass 2, anote onde travou"
+- Perfeito pra "após o Redesenvolvimento, anote onde travou"
 
 **Contras:**
 - Não é plataforma de **entrega**. É ferramenta de **estudo pessoal**.
@@ -242,7 +242,7 @@ consegue ser largamente automatizada:
 - `docs.html` vira `docs/cheatsheet.md`
 - Progress tracker — **remove ou migra pra plugin**; não é essencial
 
-**O que a Pass 2 manual ganha com isso:** quando o aluno (você mesmo)
+**O que o Redesenvolvimento manual ganha com isso:** quando o aluno (você mesmo)
 estiver reimplementando, editar notas num markdown é trivial. Editar
 HTML grande é fricção.
 
@@ -267,7 +267,7 @@ HTML grande é fricção.
 
 - **Não agora** — o projeto tem 2 entregas abertas (T.7, T.8 itens
   médios, T.9 itens médios). Terminar essas primeiro.
-- **Durante ou após a Pass 2** — quando você estiver reimplementando,
+- **Durante ou após o Redesenvolvimento** — quando você estiver reimplementando,
   você já vai estar editando o guia pra corrigir onde o currículo foi
   confuso. Nesse momento, migrar o formato vale mais.
 
@@ -306,7 +306,7 @@ Exemplo pra Fase 5:
 ### (b) Seção "O que cada desafio NÃO cobre" no final
 
 Explicitar o gap, como o `melhorias-estruturais.md` já faz. Dá
-honestidade + ganchos pra Pass 2 aprofundada.
+honestidade + ganchos pro Redesenvolvimento aprofundado.
 
 ### (c) "Por que isso existe" antes do "Como construir"
 
@@ -324,7 +324,7 @@ digitar código.
 | É boa pra manutenção com LLM? | **Não** — arquivos grandes, duplicação de nav, HTML+JS+PT-BR misturados. Frágil. |
 | fast.ai faz melhor? | Em interatividade e "fonte única": sim. No estilo visual custom: não. |
 | Migrar tudo agora? | **Não**. Terminar as dívidas abertas (T.7-T.9) primeiro. |
-| Quando migrar? | Durante ou após a Pass 2, quando for natural re-trabalhar o guia. |
+| Quando migrar? | Durante ou após o Redesenvolvimento, quando for natural re-trabalhar o guia. |
 | Pra que formato? | **MkDocs Material** como guia principal + Jupyter Notebooks opcionais pra Fases 1-2/5. Código em `src/` continua fonte da verdade via plugin de include. |
 | Ajustes pedagógicos sem trocar tech? | 3 quick wins: "resultado em 10 min" no topo de cada fase, "o que esta fase NÃO cobre" no fim, "por que existe" antes de "o que construir". |
 

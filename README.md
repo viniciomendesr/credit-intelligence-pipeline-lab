@@ -42,11 +42,12 @@ técnico moderno:
   — cada desafio parte de problema concreto com dado real e métrica
   objetiva. O aluno **mede** o que fez (AUC, precision@k, pass rate), não
   apenas sente. Métricas viram feedback, não ornamento.
-- **Two-pass learning** — primeira passagem com código de referência pronto
-  (este repo como gabarito), segunda passagem reimplementando
-  manualmente a partir dos guias. A teoria vem do **tropeço**, não antes
-  dele. O gabarito existe pra consultar quando travar, não pra ler como
-  livro.
+- **Projeto em duas fases** — **Fase 1 (Construção)**: código de referência
+  pronto neste repo, com tudo rodando em produção. **Fase 2
+  (Redesenvolvimento)**: o aluno reimplementa tudo manualmente **em um repo
+  separado** dele, consultando este como gabarito só quando travar. A teoria
+  vem do **tropeço**, não antes dele. O gabarito existe pra consultar,
+  não pra ler como livro.
 - **Worked examples com progressive fading** — para novatos num domínio,
   problemas abertos sem scaffold geram sobrecarga cognitiva ([efeito
   documentado](https://en.wikipedia.org/wiki/Worked-example_effect) em
@@ -217,20 +218,51 @@ Actions · pytest · Anthropic Claude API · scikit-learn · XGBoost.
 
 Três perfis de uso. Escolha o que bate com o seu momento.
 
-### 👨‍💻 Perfil 1 — Eu mesmo (refazendo na mão, Pass 2)
+### Perfil 1 — Eu mesmo (fase de Redesenvolvimento)
 
-Objetivo: reimplementar tudo sem olhar no gabarito.
+Objetivo: reimplementar tudo do zero sem olhar no gabarito. A fase de
+**Redesenvolvimento** acontece em um **repositório separado**, não
+neste — este aqui é apenas a referência que você consulta quando
+travar.
 
-1. Clone em **outra pasta**, deleta `src/`, `api/`, `pipeline/`, `scripts/`,
-   `tests/`.
-2. Mantém `data/` (precisa do dataset), `requirements.txt`, e os guias.
-3. Abre o guia em `context/projeto-pedagogico/fase-1.html` (basta abrir o
-   arquivo no navegador — HTML estático) ou segue pelos desafios descritos
-   em [`decisions.md`](decisions.md).
-4. Para cada desafio: tente por 20-30 min, só então abra o gabarito neste
-   repo.
-5. Anote onde travou em `exercicios.md` pessoal — esses travamentos são
-   ouro pra estudos futuros.
+**Setup sugerido:**
+
+```bash
+# 1. Crie um novo repo fora deste projeto (pasta vazia + git init)
+cd ~/programming
+mkdir credit-lab-redev && cd credit-lab-redev
+git init && git branch -M main
+
+# 2. Estrutura mínima
+mkdir -p src tests data/raw
+touch src/__init__.py tests/__init__.py
+echo "# Credit Lab — Redesenvolvimento" > README.md
+
+# 3. Baixe o dataset Kaggle em data/raw/ (veja instruções em
+#    ../credit-intelligence-pipeline-lab/data/README.md)
+```
+
+**Fluxo por desafio:**
+
+1. Abra o guia em `context/projeto-pedagogico/fase-N.html` deste repo
+   (arquivo estático — basta abrir no navegador, não precisa servidor).
+2. Leia o desafio (**o que construir**, IO badges, critério de teste).
+3. No seu repo de Redesenvolvimento, tente implementar por **20-30 min
+   sem consultar o gabarito**.
+4. Se travar por mais que isso, abra o arquivo correspondente em `src/`
+   deste repo. Leia, feche, e **reimplemente sem copiar**.
+5. Anote onde travou em um `notes.md` do seu repo — esses travamentos
+   orgânicos vão virar material de estudo futuro (o `exercicios.md` que
+   cresce conforme você faz).
+
+**O que NÃO fazer:**
+
+- Clonar este repo, apagar código, e preencher de novo — o `git` do
+  gabarito contaminaria suas tentativas e você perderia o hábito de
+  scaffolding do zero.
+- Copiar-colar do gabarito direto pro seu repo — derrota o propósito.
+- Abrir o gabarito antes de tentar o desafio — leia o guia primeiro,
+  depois tente sozinho, só então consulte.
 
 ### 👀 Perfil 2 — Alguém aprendendo pelo repo
 
