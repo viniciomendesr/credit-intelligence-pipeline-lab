@@ -224,8 +224,9 @@ Objetivo: reimplementar tudo sem olhar no gabarito.
 1. Clone em **outra pasta**, deleta `src/`, `api/`, `pipeline/`, `scripts/`,
    `tests/`.
 2. Mantém `data/` (precisa do dataset), `requirements.txt`, e os guias.
-3. Abre o guia privado em `context/projeto-pedagogico/fase-1.html` (se existir
-   localmente) ou segue pelos desafios descritos em [`decisions.md`](decisions.md).
+3. Abre o guia em `context/projeto-pedagogico/fase-1.html` (basta abrir o
+   arquivo no navegador — HTML estático) ou segue pelos desafios descritos
+   em [`decisions.md`](decisions.md).
 4. Para cada desafio: tente por 20-30 min, só então abra o gabarito neste
    repo.
 5. Anote onde travou em `exercicios.md` pessoal — esses travamentos são
@@ -267,22 +268,86 @@ Projeto foi desenhado consultando:
   para novatos num domínio.
 
 Reflexões pós-implementação sobre o que funciona e o que precisa ajustar
-ficam em `context/projeto-pedagogico/` (material privado).
+ficam em [`context/projeto-pedagogico/`](context/projeto-pedagogico/) —
+**guia HTML + meta-revisões públicas**. Destaques:
+
+- **`fase-1.html` até `fase-5.html`**: desafios passo a passo de cada fase
+- **`bonus-fase4.html` e `bonus-fase5.html`**: endpoints de explicabilidade
+- **`melhorias-estruturais.md`**: T.1-T.10 — o que o currículo NÃO ensina e por quê
+- **`pedagogical-inventory.md`**: catálogo de 15 dimensões de conceitos exercitados
+- **`platform-review.md`**: comparação da plataforma atual (HTML) vs fast.ai/MkDocs
 
 ---
 
 ## Status
 
 - Fases 1–5 + Bônus Fase 4 + Bônus Fase 5: **implementados e em produção**
-- CI/CD: **verde** (test + deploy automáticos em push para `main`)
+- CI/CD: **verde** (test + deploy via pull request aprovado em `main`)
 - Modelo ML: AUC 0.857 (XGBoost calibrado) vs 0.764 (baseline rule-based)
 - Custo operacional: <R$1/mês em uso pessoal (Cloud Run scale-to-zero,
   GCS Standard com ~5 MB, Anthropic Haiku em tier free + créditos)
 
-Dívidas conhecidas registradas em `context/projeto-pedagogico/melhorias-estruturais.md`
-(material privado). Entre os principais itens abertos: fairness audit,
-feature engineering manual, custo assimétrico FN vs FP, Dockerfile de
-training.
+Dívidas conhecidas registradas em [`context/projeto-pedagogico/melhorias-estruturais.md`](context/projeto-pedagogico/melhorias-estruturais.md).
+Entre os principais itens abertos: fairness audit, feature engineering
+manual, custo assimétrico FN vs FP, Dockerfile de training.
+
+---
+
+## Contribuindo — fluxo de desenvolvimento
+
+Este repositório usa **branch protection** em `main` + **PR workflow
+obrigatório**. Push direto em `main` está bloqueado (admin pode bypassar
+em emergência, mas o aviso fica registrado).
+
+Esse setup é uma tradução prática do **nível 2 de maturidade de CI/CD**
+descrito em [`context/projeto-pedagogico/melhorias-estruturais.md::T.10`](context/projeto-pedagogico/melhorias-estruturais.md).
+Treina o hábito de PR review que qualquer time de fintech real exige.
+
+### Fluxo para qualquer mudança
+
+```bash
+# 1. Criar branch descritiva (ver convenção abaixo)
+git checkout -b feat/nome-curto
+
+# 2. Trabalhar normalmente
+# ...editar, testar localmente com `pytest`, commitar...
+
+# 3. Push do branch
+git push -u origin feat/nome-curto
+
+# 4. Abrir PR
+gh pr create --title "feat: descrição" --body "contexto em 1-2 frases"
+
+# 5. Esperar CI verde (job `test` é status check obrigatório)
+gh pr checks
+
+# 6. Merge (squash ou merge commit — projeto não tem preferência)
+gh pr merge --squash --delete-branch
+```
+
+### Convenção de branches
+
+Prefixo por tipo (consistente com mensagens de commit):
+
+- `feat/` — nova funcionalidade
+- `fix/` — correção de bug
+- `docs/` — documentação (normalmente pula CI via `paths-ignore`)
+- `refactor/` — mudança interna sem alterar comportamento
+- `chore/` — manutenção, deps, CI config
+- `test/` — adição ou ajuste de testes
+
+### O que dispara CI
+
+O workflow em `.github/workflows/pipeline.yml` usa `paths-ignore` para
+**não disparar deploy** quando a mudança é só em docs/material pedagógico:
+
+- `**/*.md` e `*.md`
+- `context/**` (todo o guia pedagógico)
+- `reports/**`, `models/**`
+- `.gitignore`, `LICENSE`
+
+PRs tocando só esses paths fazem merge sem rodar CI — mais rápido,
+barato, e evita redeploys desnecessários.
 
 ---
 
